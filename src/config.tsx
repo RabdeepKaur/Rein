@@ -16,4 +16,5 @@ export const THEMES = {
 export const CONFIG = {
     // Port for the Vite Frontend
     FRONTEND_PORT: serverConfig.frontendPort,
+    MOUSE_Y_INVERT: serverConfig.MOUSE_Y_INVERT ?? false
 };

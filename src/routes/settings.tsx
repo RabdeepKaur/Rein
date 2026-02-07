@@ -182,7 +182,7 @@ function SettingsPage() {
                                 config: {
                                     frontendPort: parseInt(frontendPort),
                                     mouseInvert: invertScroll,
-                                    mouseSensitivity: sensitivity // [!code ++]
+                                    mouseSensitivity: sensitivity,
                                 }
                             }));
 

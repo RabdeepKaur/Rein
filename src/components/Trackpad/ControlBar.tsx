@@ -4,6 +4,7 @@ import React from "react";
 interface ControlBarProps {
 	scrollMode: boolean;
 	modifier: ModifierState;
+	buffer:string;
 	onToggleScroll: () => void;
 	onLeftClick: () => void;
 	onRightClick: () => void;
@@ -14,6 +15,7 @@ interface ControlBarProps {
 export const ControlBar: React.FC<ControlBarProps> = ({
 	scrollMode,
 	modifier,
+	buffer,
 	onToggleScroll,
 	onLeftClick,
 	onRightClick,
@@ -28,7 +30,8 @@ export const ControlBar: React.FC<ControlBarProps> = ({
 	const getModifierButtonClass = () => {
 		switch(modifier) {
 			case "Active":
-				return "btn-success"; 
+				if(buffer.length > 0) return "btn-success" 
+                else return "btn-warning";
 			case "Hold":
 				return "btn-warning";
 			case "Release":
@@ -37,14 +40,14 @@ export const ControlBar: React.FC<ControlBarProps> = ({
 		}
 	};
 
-	const getModifierLabel = () => {
+    const getModifierLabel = () => {
 		switch(modifier) {
 			case "Active":
-				return "Press";
+			 	if(buffer.length > 0) return "Press" 
+                else return "Release";
 			case "Hold":
 				return "Release";
 			case "Release":
-			default:
 				return "Hold";
 		}
 	};

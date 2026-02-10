@@ -156,6 +156,7 @@ function TrackpadPage() {
             <ControlBar
                 scrollMode={scrollMode}
                 modifier={modifier}
+                buffer={buffer.join(" + ")}
                 onToggleScroll={() => setScrollMode(!scrollMode)}
                 onLeftClick={() => handleClick('left')}
                 onRightClick={() => handleClick('right')}

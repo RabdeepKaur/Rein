@@ -10,8 +10,20 @@ export const Route = createFileRoute('/settings')({
 function SettingsPage() {
     const [ip, setIp] = useState('');
     const [frontendPort, setFrontendPort] = useState(String(CONFIG.FRONTEND_PORT));
-    const [invertScroll, setInvertScroll] = useState(CONFIG.MOUSE_INVERT);
-    const [sensitivity, setSensitivity] = useState(CONFIG.MOUSE_SENSITIVITY);
+    
+    // Client Side Settings (LocalStorage)
+    const [invertScroll, setInvertScroll] = useState(() => {
+        if (typeof window === 'undefined') return false;
+        const saved = localStorage.getItem('rein_invert');
+        return saved ? JSON.parse(saved) : false;
+    });
+    
+    const [sensitivity, setSensitivity] = useState(() => {
+        if (typeof window === 'undefined') return 1.0;
+        const saved = localStorage.getItem('rein_sensitivity');
+        return saved ? parseFloat(saved) : 1.0;
+    });
+
     const [qrData, setQrData] = useState('');
 
     // Load initial state
@@ -20,9 +32,17 @@ function SettingsPage() {
         const defaultIp = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
 
         setIp(storedIp || defaultIp);
-        // We don't store frontend port in local storage for now, just load from config default
         setFrontendPort(String(CONFIG.FRONTEND_PORT));
     }, []);
+
+    // Effect: Update LocalStorage when settings change
+    useEffect(() => {
+        localStorage.setItem('rein_sensitivity', String(sensitivity));
+    }, [sensitivity]);
+
+    useEffect(() => {
+        localStorage.setItem('rein_invert', JSON.stringify(invertScroll));
+    }, [invertScroll]);
 
     // Effect: Update LocalStorage and Generate QR
     useEffect(() => {
@@ -181,8 +201,7 @@ function SettingsPage() {
                                 type: 'update-config',
                                 config: {
                                     frontendPort: parseInt(frontendPort),
-                                    mouseInvert: invertScroll,
-                                    mouseSensitivity: sensitivity,
+                                    // Removed mouseInvert/Sensitivity from server config update
                                 }
                             }));
 

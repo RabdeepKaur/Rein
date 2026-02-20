@@ -29,7 +29,7 @@ const KEY_ROWS: KeyDef[][] = [
 	[
 		{ label: "Ctrl", key: "ctrl", color: "modifier" },
 		{ label: "Menu", key: "menu" },
-		{ label: "↑", key: "arrowup", color: "action" },
+		{ label: "PrtSc", key: "printscreen", color: "action" },
 		{ label: "◀", key: "arrowleft", color: "arrow" },
 		{ label: "▼", key: "arrowdown", color: "arrow" },
 		{ label: "▶", key: "arrowright", color: "arrow" },

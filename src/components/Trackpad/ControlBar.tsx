@@ -77,32 +77,20 @@ interface CtrlBtnProps {
 }
 
 const CtrlBtn: React.FC<CtrlBtnProps> = ({ onClick, active, activeColor, label, icon, sublabel }) => {
-	const base =
-		"flex flex-col items-center justify-center gap-[2px] rounded-lg transition-all duration-100 active:scale-95 select-none touch-none cursor-pointer";
+	const base = "flex flex-col items-center justify-center gap-[2px] rounded-lg transition-all duration-100 active:scale-95 select-none touch-none cursor-pointer";
 
-	const style: React.CSSProperties = {
-		height: "clamp(44px, 9vw, 56px)",
-		minWidth: 0,
-		boxShadow: active
-			? `0 0 12px ${activeColor ?? "#6366f1"}55, 0 2px 4px rgba(0,0,0,0.5)`
-			: "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.07)",
-		background: active
-			? `linear-gradient(145deg, ${activeColor ?? "#4f46e5"}, ${activeColor ?? "#4338ca"})`
-			: "linear-gradient(145deg, #1e2b3c, #172030)",
-		border: active ? `1px solid ${activeColor ?? "#6366f1"}` : "1px solid rgba(255,255,255,0.08)",
-		color: active ? "#fff" : "#94a3b8",
-		fontSize: "clamp(7px, 1.8vw, 9px)",
-		fontWeight: 600,
-		letterSpacing: "0.04em",
-		textTransform: "uppercase",
-		padding: "0 4px",
-	};
+	const boxShadow = active ? `0 0 12px ${activeColor ?? "#6366f1"}55, 0 2px 4px rgba(0,0,0,0.5)` : "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.07)";
+
+	const background = active ? `linear-gradient(145deg, ${activeColor ?? "#4f46e5"}, ${activeColor ?? "#4338ca"})` : "linear-gradient(145deg, #1e2b3c, #172030)";
+
+	const border = active ? `1px solid ${activeColor ?? "#6366f1"}` : "1px solid rgba(255,255,255,0.08)";
+
+	const color = active ? "#fff" : "#94a3b8";
 
 	return (
-		<button type="button" className={base} style={style} onPointerDown={(e) => { e.preventDefault(); onClick(); }}>
-			{icon}
-			<span style={{ fontSize: "clamp(6.5px, 1.6vw, 8.5px)", marginTop: 1 }}>{label}</span>
-			{sublabel && <span style={{ fontSize: "clamp(5.5px, 1.3vw, 7px)", opacity: 0.7 }}>{sublabel}</span>}
+		<button type="button" className={`${base} h-[clamp(44px,9vw,56px)] min-w-0 text-[clamp(7px,1.8vw,9px)] font-semibold tracking-[0.04em] uppercase px-[4px]`} style={{ boxShadow, background, border, color }}onPointerDown={(e) => { e.preventDefault(); onClick(); }}>{icon}
+			<span className="mt-[1px] text-[clamp(6.5px,1.6vw,8.5px)]">{label}</span>
+			{sublabel && <span className="text-[clamp(5.5px,1.3vw,7px)] opacity-70">{sublabel}</span>}
 		</button>
 	);
 };
@@ -129,23 +117,9 @@ export const ControlBar: React.FC<ControlBarProps> = ({
 	};
 
 	return (
-		<div
-			className="shrink-0 grid gap-[5px] px-[6px] py-[6px]"
-			style={{
-				gridTemplateColumns: "repeat(7, 1fr)",
-				background: "linear-gradient(180deg, #0f1622 0%, #0b1019 100%)",
-				borderTop: "1px solid rgba(255,255,255,0.07)",
-				borderBottom: "1px solid rgba(255,255,255,0.04)",
-			}}
-		>
+		<div className="shrink-0 grid gap-[5px] px-[6px] py-[6px] grid-cols-7 bg-[linear-gradient(180deg,#0f1622_0%,#0b1019_100%)] border-t border-[rgba(255,255,255,0.07)] border-b border-[rgba(255,255,255,0.04)]">
 			{/* Cursor / Scroll toggle */}
-			<CtrlBtn
-				onClick={onToggleScroll}
-				active={scrollMode}
-				activeColor="#3b82f6"
-				label={scrollMode ? "Scroll" : "Cursor"}
-				icon={scrollMode ? <ScrollIcon /> : <CursorIcon />}
-			/>
+			<CtrlBtn onClick={onToggleScroll} active={scrollMode} activeColor="#3b82f6" label={scrollMode ? "Scroll" : "Cursor"} icon={scrollMode ? <ScrollIcon /> : <CursorIcon />}/>
 
 			{/* Left Click */}
 			<CtrlBtn
@@ -183,7 +157,7 @@ export const ControlBar: React.FC<ControlBarProps> = ({
 				label={getModLabel()}
 				sublabel={modifierActive ? "MOD" : undefined}
 				icon={
-					<span style={{ fontSize: "clamp(10px, 2.5vw, 15px)", fontFamily: "monospace", fontWeight: 800 }}>
+					<span className="text-[clamp(10px,2.5vw,15px)] font-mono font-extrabold">
 						{modifier === "Active" ? (buffer.length > 0 ? "⚡" : "◉") : modifier === "Hold" ? "⏻" : "⊕"}
 					</span>
 				}

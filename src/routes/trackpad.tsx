@@ -16,8 +16,6 @@ function TrackpadPage() {
     const [scrollMode, setScrollMode] = useState(false);
     const [modifier, setModifier] = useState<ModifierState>("Release");
     const [buffer, setBuffer] = useState<string[]>([]);
-    const bufferText = buffer.join(" + ");
-    const hiddenInputRef = useRef<HTMLInputElement>(null);
     const isComposingRef = useRef(false);
     const prevCompositionDataRef = useRef('');
 
@@ -28,6 +26,8 @@ function TrackpadPage() {
     const [controlsVisible, setControlsVisible] = useState(
         typeof window !== 'undefined' ? window.innerWidth < 768 : true
     )
+
+    const [keyboardOn, setKeyboardOn] = useState(false)
 
     const bufferText = buffer.join(' + ')
     const hiddenInputRef = useRef<HTMLInputElement>(null)
@@ -55,7 +55,6 @@ function TrackpadPage() {
             return next;
         });
     };
-
 
     const [sensitivity] = useState(() => {
         if (typeof window === 'undefined') return 1.0
@@ -214,7 +213,6 @@ function TrackpadPage() {
         }
     };
 
-
     const handleContainerClick = (e: React.MouseEvent) => {
         if (e.currentTarget === e.target && keyboardOn) {
             hiddenInputRef.current?.focus()
@@ -227,8 +225,7 @@ function TrackpadPage() {
 
     return (
         <div
-            className="flex flex-col h-full overflow-hidden"
-            style={{ background: '#080d14' }}
+            className="flex flex-col h-full overflow-hidden bg-[#080d14]"
             onClick={handleContainerClick}
         >
             <TouchArea
@@ -288,10 +285,6 @@ function TrackpadPage() {
                         )}
                     </>
                 )}
-
-
-
-
             </div>
 
             <button
@@ -300,36 +293,9 @@ function TrackpadPage() {
                     e.stopPropagation()
                     setControlsVisible(v => !v)
                 }}
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 5,
-                    width: '100%',
-                    padding: '5px 0 4px 0',
-                    background:
-                        'linear-gradient(180deg, #0d1420 0%, #0a1018 100%)',
-                    border: 'none',
-                    borderTop: '1px solid rgba(255,255,255,0.07)',
-                    cursor: 'pointer',
-                    color: 'rgba(148,163,184,0.5)',
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    fontWeight: 600,
-                    letterSpacing: '0.1em',
-                    userSelect: 'none',
-                }}
+                className="flex items-center justify-center gap-[5px] w-full pt-[5px] pb-[4px] bg-[linear-gradient(180deg,#0d1420_0%,#0a1018_100%)] border-0 border-t border-[rgba(255,255,255,0.07)] cursor-pointer text-[rgba(148,163,184,0.5)] text-[11px] font-mono font-semibold tracking-[0.1em] select-none"
             >
-                <span
-                    style={{
-                        transform: controlsVisible
-                            ? 'rotate(0deg)'
-                            : 'rotate(180deg)',
-                        display: 'inline-block',
-                        transition: 'transform 0.25s',
-                        fontSize: 10,
-                    }}
-                >
+                <span className={`inline-block text-[10px] transition-transform duration-[250ms] ${controlsVisible ? "rotate-0" : "rotate-180"}`}>
                     ▼
                 </span>
 
@@ -343,16 +309,7 @@ function TrackpadPage() {
                             : 'SHOW MORE CONTROLS'}
                 </span>
 
-                <span
-                    style={{
-                        transform: controlsVisible
-                            ? 'rotate(0deg)'
-                            : 'rotate(180deg)',
-                        display: 'inline-block',
-                        transition: 'transform 0.25s',
-                        fontSize: 10,
-                    }}
-                >
+                <span className={`inline-block text-[10px] transition-transform duration-[250ms] ${controlsVisible ? "rotate-0" : "rotate-180"}`}>
                     ▼
                 </span>
             </button>
@@ -369,7 +326,6 @@ function TrackpadPage() {
                     autoCapitalize="off"
                 />
             )}
-
         </div>
     )
 }

@@ -6,8 +6,6 @@ interface ExtraKeysProps {
 	visibleRows?: number;
 	startRow?: number;
 	noTopBorder?: boolean;
-
-
 }
 
 type KeyDef = {
@@ -108,16 +106,7 @@ export const ExtraKeys: React.FC<ExtraKeysProps> = ({ sendKey, visibleRows, star
 
 	return (
 		<div
-			className="shrink-0 select-none"
-			style={{
-				background: "linear-gradient(180deg, #111827 0%, #0d1117 100%)",
-				borderTop: noTopBorder ? "none" : "1px solid rgba(255,255,255,0.06)",
-				paddingTop: noTopBorder ? "0px" : "8px",
-				paddingBottom: "5px",
-				paddingLeft: "5px",
-				paddingRight: "5px",
-
-			}}
+			className={`shrink-0 select-none bg-[linear-gradient(180deg,#111827_0%,#0d1117_100%)] ${noTopBorder ? "border-t-0 pt-0" : "border-t border-[rgba(255,255,255,0.06)] pt-[8px]"} pb-[5px] px-[5px]`}
 		>
 			{rowsToRender.map((row, rowIdx) => {
 				const isLastRow = rowIdx === rowsToRender.length - 1;
@@ -143,25 +132,7 @@ export const ExtraKeys: React.FC<ExtraKeysProps> = ({ sendKey, visibleRows, star
 								<button
 									key={`${rowIdx}-${keyDef.key}-${keyDef.label}`}
 									type="button"
-									className={`
-                            ${cls}
-                            rounded-[6px]
-                            font-mono
-                            text-center
-                            transition-all duration-75
-                            cursor-pointer
-                            touch-none
-                            relative
-                            flex items-center justify-center
-                        `}
-									style={{
-										height: "clamp(34px, 6.5vw, 46px)",
-										fontSize: "clamp(9px, 2.2vw, 13px)",
-										fontWeight: 600,
-										letterSpacing: "0.01em",
-										boxShadow:
-											"0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
-									}}
+									className={`${cls} rounded-[6px] font-mono text-center transition-all duration-75 cursor-pointer touch-none relative flex items-center justify-center h-[clamp(34px,6.5vw,46px)] text-[clamp(9px,2.2vw,13px)] font-semibold tracking-[0.01em] shadow-[0_2px_4px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)]`}
 									onPointerDown={(e) => handleKey(e, keyDef)}
 								>
 									{displayLabel}

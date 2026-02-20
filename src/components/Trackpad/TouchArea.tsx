@@ -50,8 +50,7 @@ export const TouchArea: React.FC<TouchAreaProps> = ({
             >
                 <div className="flex items-center gap-2">
 
-                    <div
-                        className={`rounded-full w-[7px] h-[7px] ${status === "connecting" ? "animate-[pulse_1.2s_infinite]" : ""}`}
+                    <div className={`rounded-full w-[7px] h-[7px] ${status === "connecting" ? "animate-[var(--animate-pulse)] [animation-duration:1.2s]" : ""}`}
                         style={{
                             background: statusColor,
                             boxShadow: `0 0 6px ${statusColor}`,
@@ -75,8 +74,7 @@ export const TouchArea: React.FC<TouchAreaProps> = ({
                 <div
                     className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40"
                 >
-                    <div
-                        className="w-[60px] h-[60px] rounded-full border-[2px] border-[#6366f1] animate-[ping_0.6s_ease-out_infinite]"
+                    <div className="w-[60px] h-[60px] rounded-full border-[2px] border-[`#6366f1`] animate-[var(--animate-ping)] [animation-duration:0.6s] [animation-timing-function:ease-out]"
                     />
                 </div>
             )}

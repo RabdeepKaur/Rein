@@ -1,4 +1,4 @@
-import { mouse, left, right, down, up } from "@nut-tree-fork/nut-js";
+import { down, left, mouse, right, up } from "@nut-tree-fork/nut-js";
 
 (async () => {
 	console.log("Moving mouse in a square pattern...");

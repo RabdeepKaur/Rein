@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useRef } from "react";
-import { useRemoteConnection } from "../hooks/useRemoteConnection";
-import { useTrackpadGesture } from "../hooks/useTrackpadGesture";
+import { useRef, useState } from "react";
+import { BufferBar } from "@/components/Trackpad/Buffer";
+import type { ModifierState } from "@/types";
 import { ControlBar } from "../components/Trackpad/ControlBar";
 import { ExtraKeys } from "../components/Trackpad/ExtraKeys";
 import { TouchArea } from "../components/Trackpad/TouchArea";
-import { BufferBar } from "@/components/Trackpad/Buffer";
-import type { ModifierState } from "@/types";
+import { useRemoteConnection } from "../hooks/useRemoteConnection";
+import { useTrackpadGesture } from "../hooks/useTrackpadGesture";
 
 export const Route = createFileRoute("/trackpad")({
 	component: TrackpadPage,

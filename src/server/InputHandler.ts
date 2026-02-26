@@ -20,11 +20,15 @@ export class InputHandler {
 	private pendingScroll: InputMessage | null = null
 	private moveTimer: ReturnType<typeof setTimeout> | null = null
 	private scrollTimer: ReturnType<typeof setTimeout> | null = null
-	private readonly throttleMs: number
+	private throttleMs: number
 
 	constructor(throttleMs = 8) {
 		mouse.config.mouseSpeed = 1000
 		this.throttleMs = throttleMs
+	}
+
+	setThrottleMs(ms: number) {
+		this.throttleMs = ms
 	}
 
 	private isFiniteNumber(value: unknown): value is number {

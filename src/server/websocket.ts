@@ -124,7 +124,7 @@ export function createWsServer(server: unknown) {
 
 			let lastRaw = ""
 			let lastTime = 0
-			const DUPLICATE_WINDOW_MS = inputThrottleMs
+			let duplicateWindowMs = inputThrottleMs
 			let lastTokenTouch = 0
 
 			ws.on("message", async (data: WebSocket.RawData) => {
@@ -133,7 +133,7 @@ export function createWsServer(server: unknown) {
 					const now = Date.now()
 
 					// Prevent rapid identical message spam
-					if (raw === lastRaw && now - lastTime < DUPLICATE_WINDOW_MS) {
+					if (raw === lastRaw && now - lastTime < duplicateWindowMs) {
 						return
 					}
 
@@ -277,6 +277,12 @@ export function createWsServer(server: unknown) {
 								: {}
 							const newConfig = { ...current, ...filtered }
 							fs.writeFileSync(configPath, JSON.stringify(newConfig, null, 2))
+
+							// Propagate inputThrottleMs immediately to live subsystems
+							if (typeof filtered.inputThrottleMs === "number") {
+								inputHandler.setThrottleMs(filtered.inputThrottleMs)
+								duplicateWindowMs = filtered.inputThrottleMs
+							}
 
 							logger.info("Server configuration updated")
 							ws.send(JSON.stringify({ type: "config-updated", success: true }))

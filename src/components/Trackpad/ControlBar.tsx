@@ -163,25 +163,27 @@ export const ControlBar: React.FC<ControlBarProps> = ({
 		}
 	}
 
-	const ModifierButton = () => (
-		<button
-			type="button"
-			className={`flex items-center justify-center w-[48px] h-[36px] transition-all duration-100 ${
-				modifier === "Hold"
-					? "!bg-neutral-900 hover:!bg-neutral-800 active:!bg-neutral-800"
-					: "btn " + getModifierButtonClass()
-			}`}
-			onPointerDown={(e) => handleInteraction(e, onModifierToggle)}
-		>
-			{getModifierLabel() === "Release" ? (
-				<span className="text-red-600 text-[26px] font-extrabold leading-none">
-					✕
-				</span>
-			) : (
-				<span className="text-xs font-bold">{getModifierLabel()}</span>
-			)}
-		</button>
-	)
+const ModifierButton = () => (
+	<button
+		type="button"
+		className={`flex items-center justify-center w-[48px] h-[36px] transition-all duration-100 ${
+			modifier === "Hold"
+				? "!bg-neutral-900 hover:!bg-neutral-800 active:!bg-neutral-800"
+				: `btn ${getModifierButtonClass()}`
+		}`}
+		onPointerDown={(e) => handleInteraction(e, onModifierToggle)}
+	>
+		{getModifierLabel() === "Release" ? (
+			<span className="text-red-600 text-[26px] font-extrabold leading-none">
+				✕
+			</span>
+		) : (
+			<span className="text-xs font-bold">
+				{getModifierLabel()}
+			</span>
+		)}
+	</button>
+)
 
 	const baseClasses =
 		"flex-1 flex items-center justify-center px-3 py-[11px] bg-base-100 hover:bg-base-300 active:scale-[0.98] transition-all duration-100"

@@ -67,15 +67,9 @@ export const ControlBar: React.FC<ControlBarProps> = ({
 				onPointerDown={(e) => handleInteraction(e, onModifierToggle)}
 			>
 				{label === "Release" ? (
-					<X
-						size={26}
-						strokeWidth={3.5}
-						className="text-red-600"
-					/>
+					<X size={26} strokeWidth={3.5} className="text-red-600" />
 				) : (
-					<span className="text-xs font-bold">
-						{label}
-					</span>
+					<span className="text-xs font-bold">{label}</span>
 				)}
 			</button>
 		)
@@ -85,9 +79,7 @@ export const ControlBar: React.FC<ControlBarProps> = ({
 		<div className="flex w-full bg-base-200 border-b border-base-300 pr-1">
 			<button
 				type="button"
-				className={`${baseButton} ${
-					scrollMode ? "text-primary" : ""
-				}`}
+				className={`${baseButton} ${scrollMode ? "text-primary" : ""}`}
 				onPointerDown={(e) => handleInteraction(e, onToggleScroll)}
 			>
 				<MousePointer2 size={20} />

@@ -56,12 +56,6 @@ function TrackpadPage() {
 		setKeyboardOpen((prev) => !prev)
 	}
 
-	const focusInputSilent = () => {
-		if (keyboardOpen) {
-			hiddenInputRef.current?.focus()
-		}
-	}
-
 	const focusInput = () => {
 		hiddenInputRef.current?.focus()
 	}
